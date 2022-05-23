@@ -1,5 +1,5 @@
 let studentsAmount = +prompt('How many students do you have?');
-let StudentsList = generateStudent(studentsAmount);
+let studentsList = generateStudent(studentsAmount);
 viewMyObj(StudentsList);
 
 do {

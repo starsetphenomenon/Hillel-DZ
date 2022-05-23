@@ -15,12 +15,12 @@ function addRandomStudent(list) {
     return list;
 }
 
-function generatePoints(Points) {
-    const StudentPoints = Points.split(',');
-    for (const i in StudentPoints) {
-        StudentPoints[i] = +StudentPoints[i];
+function generatePoints(points) {
+    const studentPoints = points.split(',');
+    for (const i in studentPoints) {
+        studentPoints[i] = +studentPoints[i];
     }
-    return StudentPoints;
+    return studentPoints;
 }
 
 function generateStudent(student) {
