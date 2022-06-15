@@ -1,0 +1,63 @@
+body {
+    background-color: rgb(92, 54, 178);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    padding: 60px 60px;
+    color: #fff;
+
+}
+
+button {
+    cursor: pointer;
+}
+
+.checkedItem {
+    text-decoration: line-through;
+}
+
+#myList {
+    background-color: rgba(43, 41, 41, 0);
+    padding: 30px 60px;
+    list-style: none;
+}
+
+#myList li {
+    display: flex;
+    align-items: center;
+    padding: 10px 5px 5px 15px;
+    margin: 15px 0;
+    border: 3px solid rgba(43, 41, 41, 0.776);
+}
+
+#myList input,
+#myList button {
+    margin: 5px;
+}
+
+#myList span {
+    margin-right: 15px;
+}
+
+#myList input {
+    margin-left: auto;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+
+#myForm {
+    display: flex;
+    flex-direction: row;
+}
+
+#myForm>* {
+    margin-top: 60px;
+}
+
+.hidden {
+    display: none;
+}
