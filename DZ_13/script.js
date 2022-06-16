@@ -7,6 +7,12 @@ const checkItems = document.getElementById('checkAll');
 const allDeleteBtn = document.getElementsByClassName('elemDelete');
 const listElements = myList.childNodes;
 
+const delElem = function (e) {
+    e.target.parentNode.remove();
+};
+const checkElem = function (e) {
+    e.target.parentNode.firstChild.classList.toggle('checkedItem');
+};
 const createListElem = function () {
     if (inputText.value.trim() !== '') {
         let listElement = document.createElement('li');
@@ -24,12 +30,8 @@ const createListElem = function () {
         listElement.appendChild(elementDelete);
         myList.prepend(listElement);
         inputText.value = '';
-        elementDelete.addEventListener('click', e => {
-            e.target.parentNode.remove();
-        });
-        elementCheck.addEventListener('change', e => {
-            e.target.parentNode.firstChild.classList.toggle('checkedItem');
-        });
+        elementDelete.addEventListener('click', delElem);
+        elementCheck.addEventListener('change', checkElem);
     }
 };
 
@@ -44,8 +46,9 @@ const checkAll = function () {
 deleteItems.addEventListener('click', deleteAll);
 checkItems.addEventListener('click', checkAll);
 getTextBtn.addEventListener('click', createListElem);
-inputText.addEventListener('keyup', e => {
+const enterPressed = function (e) {
     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
         createListElem();
     }
-});
+};
+inputText.addEventListener('keyup', enterPressed);
