@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/faker@5.5.3/dist/faker.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/gh/vladbash/hillel-helpers@master/src/students/script.js"></script>
+    <script defer src="script.js"></script>
+    <title>DZ</title>
+</head>
+
+<body>
+    <div id="items" class="items">
+        <div class="item">
+            <div class="name">McBook</div>
+            <div class="price" value="3000">$3000</div>
+            <button class="buy">Buy</button>
+        </div>
+        <div class="item">
+            <div class="name">iPhone</div>
+            <div class="price" value="1000">$1000</div>
+            <button class="buy">Buy</button>
+        </div>
+        <div class="item">
+            <div class="name">Samsung</div>
+            <div class="price" value="1200">$1200</div>
+            <button class="buy">Buy</button>
+        </div>
+    </div>
+    <div>
+        <ul id="basket" class="basket">
+        </ul>
+        <div class="makeOrder">
+            <div id="total"></div>
+            <button id="makeOrder">Оформить заказ</button>
+        </div>
+    </div>
+    <div class="myOrders">
+        My orders: <br>
+        <ul id="myOrders">
+
+        </ul>
+    </div>
+</body>
+
+</html>
