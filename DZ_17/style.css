@@ -1,7 +1,13 @@
 body {
     display: flex;
     padding: 60px;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.items {
+    width: 40vw;
 }
 
 .item {
@@ -66,9 +72,6 @@ body {
 }
 
 .myOrders {
-    position: absolute;
-    bottom: 0;
-    left: 0;
     padding: 60px;
 }
 
@@ -83,18 +86,12 @@ body {
     border-bottom: 1px solid black;
     margin: 15px 0;
     display: flex;
-    flex-direction: column-reverse;
-    justify-content: flex-end;
-}
-
-.orderHistoryElem>* {
-    display: flex;
     flex-direction: row;
     justify-content: flex-end;
 }
 
-.orderHistoryElem>*>* {
-    padding: 0 30px;
+.orderHistoryElem>* {
+    padding: 15px 30px;
 }
 
 .deleteOrder {

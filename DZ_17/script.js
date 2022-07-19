@@ -6,67 +6,137 @@ const myOrders = document.getElementById('myOrders');
 
 myOrders.innerHTML = localStorage.getItem(`ordersHistory`);
 
-function BasketItem(name, count, price) {
-    this.name = name;
-    this.count = count;
-    this.price = price;
-    let item = document.createElement('li');
-    item.classList.add(`${name}`);
-    item.innerHTML = `<div class="basketName">${name}</div>
-    <div class="basketCount">${count}</div>
-    <div class="basketTotalPrice">$${price}</div>`;
-    return item;
-}
+const renderItems = function () {
+    itemsList.forEach(el => {
+        items.innerHTML += `
+        <div class="item">
+            <div class="name">${el.itemName}</div>
+            <div class="price">$${el.price}</div>
+            <button id="${el.id}" class="buy">Buy</button>
+        </div>`;
+    });
+};
+
+renderItems();
+
+const basketList = [];
 
 const onItemsBuy = function (e) {
-    if (e.target.classList.contains('buy')) {
-        let name = e.target.parentNode.querySelector('.name').innerText;
-        let price = e.target.parentNode.querySelector('.price').getAttribute('value');
-        let count = 0;
-        let totalPrice = 0;
-        count++;
-        let selector = '.' + name;
-        name = new BasketItem(name, count, price);
-        if (basket.querySelector(`${selector}`) != null) {
-            let currentCount = Number(basket.querySelector(`${selector} > .basketCount`).innerText);
-            currentCount++;
-            basket.querySelector(`${selector} > .basketTotalPrice`).innerText = `$${currentCount*price}`;
-            basket.querySelector(`${selector} > .basketCount`).innerText = `${currentCount}`;
-        } else {
-            basket.appendChild(name);
-        }
-
-        let prices = Array.from(basket.querySelectorAll('.basketTotalPrice')).map(elem => +elem.innerText.replace(/[^0-9]/g, ''));
-        totalPrice = prices.reduce((a, b) => a + b, 0);
-        total.innerText = `Total is: $${totalPrice}`;
+    if (!e.target.classList.contains('buy')) {
+        return;
     }
+    let id = +e.target.getAttribute('id');
+    let item = itemsList.find((el) => el.id === id);
+    if (basketList.some(el => el.id === id)) {
+        basketList.find((el) => {
+            if (el.id === id)
+                el.count++;
+        });
+    } else {
+        basketList.push({
+            ...item,
+            count: 1,
+        });
+    }
+    renderTotalPrice();
+    renderBasket();
+};
+
+const renderTotalPrice = function () {
+    let sum = 0;
+    basketList.forEach(el => {
+        sum += el.price * el.count;
+    });
+    total.innerText = `$${sum}`;
+};
+
+const renderBasket = function () {
+    basket.innerHTML = '';
+    basketList.forEach(el => {
+        basket.innerHTML += `<li class="basketItem">
+        <div class="basketName">${el.itemName}</div>
+        <div class="basketCount">${el.count}</div>
+        <div class="basketTotalPrice">$${+el.price*el.count}</div>
+        </li>`;
+    });
+};
+
+renderBasket();
+
+const setStorage = function () {
+    localStorage.setItem(`myOrders`, JSON.stringify(myOrdersList));
+};
+
+const getStorage = function () {
+    return JSON.parse(localStorage.getItem(`myOrders`));
+};
+
+let basketListStorage = getStorage();
+
+const renderOrderStory = function () {
+    if (basketListStorage != null) {
+        basketListStorage.forEach(el => {
+            myOrders.innerHTML += `
+          <li class="orderHistoryElem">
+              <div class="date">${el.date}</div>
+              <div class="name">${el.itemName}</div>            
+              <div class="count">${el.count}</div>    
+              <div class="price">$${el.price * el.count}</div>       
+              <button ID="${el.deleteID}" class="deleteOrder">Удалить</button>
+          </li>`;
+        });
+    }
+};
+
+renderOrderStory();
+
+let myOrdersList = [];
+
+let myStorage = getStorage();
+if (myStorage != null) {
+    myStorage.forEach(e => myOrdersList.push(e));
 };
 
 const onMakeOrder = function () {
     let date = new Date();
-    let identifier = `${date.getHours()}.${date.getMinutes()}.${date.getSeconds()}`;
-    let orderHistoryElem = document.createElement('div');
-    let deleteOrder = document.createElement('button');
-    deleteOrder.innerText = 'Удалить';
-    deleteOrder.classList.add('deleteOrder');
-    let orderDate = document.createElement('span');
-    orderDate.innerHTML = `${date.getDate()}.${date.getMonth()}`;
-    orderHistoryElem.innerHTML = basket.innerHTML;
-    orderHistoryElem.appendChild(orderDate);
-    orderHistoryElem.appendChild(deleteOrder);
-    basket.innerHTML = '';
-    total.innerText = '';
-    orderHistoryElem.classList.add('orderHistoryElem');
-    myOrders.appendChild(orderHistoryElem);
-    localStorage.setItem(`ordersHistory`, myOrders.innerHTML);
+    basketList.forEach(elem => {
+        myOrdersList.push({
+            ...elem,
+            date: date.getDate() + '.' + date.getMonth(),
+            deleteID: date.getMinutes() + '.' + date.getSeconds() + '.' + date.getMilliseconds(),
+        });
+    });
+
+    if (myOrdersList != null) {
+        myOrders.innerHTML = '';
+        myOrdersList.forEach((el, id) => {
+            el.deleteID += id;
+            myOrders.innerHTML += `
+          <li class="orderHistoryElem">
+              <div class="date">${el.date}</div>
+              <div class="name">${el.itemName}</div>            
+              <div class="count">${el.count}</div>    
+              <div class="price">$${el.price * el.count}</div>       
+              <button ID="${el.deleteID}" class="deleteOrder">Удалить</button>
+          </li>`;
+        });
+    }
+    setStorage();
 };
 
 
 const onOrderDelete = function (e) {
-    if (e.target.classList.contains('deleteOrder')) {
-        e.target.parentNode.remove();
-        localStorage.setItem(`ordersHistory`, myOrders.innerHTML);
+    if (!e.target.classList.contains('deleteOrder')) {
+        return;
     }
+    e.target.parentNode.remove();
+    console.log(myOrdersList);
+    myOrdersList.forEach((elem, i) => {
+        if (elem.deleteID === e.target.getAttribute('ID')) {
+            return myOrdersList.splice(i, 1);
+        }
+    });
+    setStorage();
 };
 
 myOrders.addEventListener('click', onOrderDelete);
