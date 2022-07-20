@@ -1,0 +1,23 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+body>* {
+    margin: 60px;
+}
+
+.elemClass {
+    display: block;
+    background: gray;
+    height: 60px;
+    width: 50%;
+}
+
+.myElements{
+    margin: 0 auto;
+    width: 50%;
+    height: auto;
+}
