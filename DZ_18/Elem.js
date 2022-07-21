@@ -9,10 +9,11 @@ class Elem {
         for (let i = 0; i < amount; i++) {
             let myNewElem = document.createElement(`${this.elemType}`);
             myNewElem.innerHTML = `${ this.content}`;
-            let keys = Object.keys(this.attributes);
-            let values = Object.values(this.attributes);
-            for (let i = 0; i < Object.keys(this.attributes).length; i++) {
-                myNewElem.setAttribute(`${keys[i]}`, values[i]);
+            for (let i in this.attributes) {
+                if (i === 'className') {
+                    myNewElem.setAttribute('class', this.attributes[i]);
+                }
+                myNewElem.setAttribute(i, this.attributes[i]);
             }
             let toAppendElem = document.querySelector(`${parent}`);
             toAppendElem.appendChild(myNewElem);
