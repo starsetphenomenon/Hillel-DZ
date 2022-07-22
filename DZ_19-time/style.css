@@ -4,7 +4,7 @@
     margin: 0 auto;
     background-color: rgb(197, 118, 22);
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     border-radius: 16px;
     margin-top: 60px;
@@ -36,12 +36,13 @@
     width: 100%;
     border-radius: 50%;
     background-color: royalblue;
+    border: 2px solid rgb(124, 55, 12);
 }
 
 #secondsArrow {
     height: 50%;
     width: 4px;
-    background-color: black;
+    background-color: rgb(168, 251, 135);
     position: absolute;
     border-radius: 50%;
     left: 50%;
@@ -52,7 +53,7 @@
 #minutesArrow {
     height: 50%;
     width: 8px;
-    background-color: black;
+    background-color: rgb(59, 11, 11);
     position: absolute;
     border-radius: 50%;
     left: 50%;
@@ -63,7 +64,7 @@
 #hoursArrow {
     height: 30%;
     width: 16px;
-    background-color: black;
+    background-color: rgb(24, 23, 72);
     position: absolute;
     border-radius: 50%;
     top: 50%;

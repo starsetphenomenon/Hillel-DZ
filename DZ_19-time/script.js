@@ -91,7 +91,7 @@ let changeTime = setInterval(updateMyTime, 1000);
 
 
 // ANALOG WATCH CODE STARTS HERE ~~
-
+//Проверки на АНАЛОГОВЫХ нет, так как получить текущий угол стрелки из ХТМЛ не вариант...
 const secondsArrow = document.getElementById('secondsArrow');
 const minutesArrow = document.getElementById('minutesArrow');
 const hoursArrow = document.getElementById('hoursArrow');
