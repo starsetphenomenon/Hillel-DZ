@@ -23,3 +23,64 @@
 .timer>* {
     padding: 30px 15px;
 }
+
+.analog {
+    height: 400px;
+    width: 400px;
+    margin: 60px auto;
+}
+
+.watch {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    background-color: royalblue;
+}
+
+#secondsArrow {
+    height: 50%;
+    width: 4px;
+    background-color: black;
+    position: absolute;
+    border-radius: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    transform-origin: bottom;
+}
+
+#minutesArrow {
+    height: 50%;
+    width: 8px;
+    background-color: black;
+    position: absolute;
+    border-radius: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    transform-origin: bottom;
+}
+
+#hoursArrow {
+    height: 30%;
+    width: 16px;
+    background-color: black;
+    position: absolute;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: bottom;
+    margin-top: -15%;
+}
+
+.gear {
+    width: 25px;
+    height: 25px;
+    background-color: rgb(241, 145, 11);
+    position: absolute;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: bottom;
+}
