@@ -37,28 +37,35 @@
     border-radius: 50%;
     background-color: royalblue;
     border: 2px solid rgb(124, 55, 12);
+    display: flex;
+    justify-self: center;
+    align-items: center;
 }
 
 #secondsArrow {
-    height: 50%;
+    height: 45%;
     width: 4px;
-    background-color: rgb(168, 251, 135);
+    background-color: rgb(82, 59, 158);
     position: absolute;
     border-radius: 50%;
+    top: 5%;
     left: 50%;
     transform: translateX(-50%);
     transform-origin: bottom;
+    z-index: 10;
 }
 
 #minutesArrow {
-    height: 50%;
+    height: 45%;
     width: 8px;
     background-color: rgb(59, 11, 11);
     position: absolute;
     border-radius: 50%;
+    top: 5%;
     left: 50%;
     transform: translateX(-50%);
     transform-origin: bottom;
+    z-index: 10;
 }
 
 #hoursArrow {
@@ -72,6 +79,7 @@
     transform: translate(-50%, -50%);
     transform-origin: bottom;
     margin-top: -15%;
+    z-index: 10;
 }
 
 .gear {
@@ -84,4 +92,90 @@
     left: 50%;
     transform: translate(-50%, -50%);
     transform-origin: bottom;
+    z-index: 10;
+}
+
+.fractals {
+    position: relative;
+    height: 95%;
+    width: 95%;
+    border-radius: 50%;
+    background-color: rgb(105, 210, 255);
+    margin: auto;
+}
+
+.frac1 {
+    height: 100%;
+    width: 4px;
+    background-color: rgb(255, 144, 17);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 2;
+}
+
+.frac2 {
+    height: 100%;
+    width: 4px;
+    background-color: rgb(255, 144, 17);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 2;
+    transform: rotate(30deg);
+}
+
+.frac3 {
+    height: 100%;
+    width: 4px;
+    background-color: rgb(255, 144, 17);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 2;
+    transform: rotate(60deg);
+}
+
+.frac4 {
+    height: 100%;
+    width: 4px;
+    background-color: rgb(255, 144, 17);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 2;
+    transform: rotate(90deg);
+}
+
+.frac5 {
+    height: 100%;
+    width: 4px;
+    background-color: rgb(255, 144, 17);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 2;
+    transform: rotate(120deg);
+}
+
+.frac6 {
+    height: 100%;
+    width: 4px;
+    background-color: rgb(255, 144, 17);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 2;
+    transform: rotate(150deg);
+}
+
+.cover {
+    position: relative;
+    height: 90%;
+    width: 90%;
+    border-radius: 50%;
+    background-color: rgb(105, 210, 255);
+    margin: auto;
+    top: 5%;
+    z-index: 3;
 }
