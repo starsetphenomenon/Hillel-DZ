@@ -90,8 +90,9 @@ const updateMyTime = function () {
 let changeTime = setInterval(updateMyTime, 1000);
 
 
-// ANALOG WATCH CODE STARTS HERE ~~
-//Проверки на АНАЛОГОВЫХ нет, так как получить текущий угол стрелки из ХТМЛ не вариант...
+
+
+// ANALOG WATCH CODE STARTS HERE ~~~~~~~~~~~~~~
 const secondsArrow = document.getElementById('secondsArrow');
 const minutesArrow = document.getElementById('minutesArrow');
 const hoursArrow = document.getElementById('hoursArrow');
@@ -107,14 +108,48 @@ const refreshArrow = function (arrowName) {
         case 'seconds':
             angle = (seconds * 360) / 60;
             secondsArrow.style.transform = `translateX(-50%) rotate(${angle}deg)`;
+            secondsArrow.setAttribute('angle', angle);
             break;
         case 'minutes':
             angle = (minutes * 360) / 60;
             minutesArrow.style.transform = `translateX(-50%) rotate(${angle}deg)`;
+            minutesArrow.setAttribute('angle', angle);
             break;
         case 'hours':
             angle = (hours * 360) / 12;
             hoursArrow.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+            hoursArrow.setAttribute('angle', angle);
+            break;
+        default:
+            console.log('Wrong input!');
+            break;
+    }
+};
+
+const checkAngle = function (timeType) {
+    let date = new Date();
+    let seconds = date.getSeconds();
+    let minutes = date.getMinutes();
+    let hours = date.getHours();
+    let angle = null;
+    switch (timeType) {
+        case 'seconds':
+            angle = (seconds * 360) / 60;
+            if (+secondsArrow.getAttribute('angle') != angle) {
+                refreshArrow('seconds');
+            }
+            break;
+        case 'minutes':
+            angle = (minutes * 360) / 60;
+            if (+minutesArrow.getAttribute('angle') != angle) {
+                refreshArrow('minutes');
+            }
+            break;
+        case 'hours':
+            angle = (hours * 360) / 12;
+            if (+hoursArrow.getAttribute('angle') != angle) {
+                refreshArrow('hours');
+            }
             break;
         default:
             console.log('Wrong input!');
@@ -123,9 +158,9 @@ const refreshArrow = function (arrowName) {
 };
 
 const refreshAllArrows = function () {
-    refreshArrow('minutes');
-    refreshArrow('seconds');
-    refreshArrow('hours');
+    checkAngle('seconds');
+    checkAngle('minutes');
+    checkAngle('hours');
 };
 
 let analogInterval = setInterval(refreshAllArrows, 1000);
