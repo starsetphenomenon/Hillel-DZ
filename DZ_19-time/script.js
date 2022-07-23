@@ -116,7 +116,7 @@ const refreshArrow = function (arrowName) {
             minutesArrow.setAttribute('angle', angle);
             break;
         case 'hours':
-            angle = (hours * 360) / 12;
+            angle = (hours * 360) / 12 + (minutes / 60) * 30;
             hoursArrow.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
             hoursArrow.setAttribute('angle', angle);
             break;
