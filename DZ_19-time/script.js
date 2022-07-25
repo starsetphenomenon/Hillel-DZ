@@ -2,8 +2,7 @@ const hoursElems = document.querySelectorAll('.hours>*');
 const minutesElems = document.querySelectorAll('.minutes>*');
 const secondsElems = document.querySelectorAll('.seconds>*');
 
-const refreshTimeElem = function (timeType, position) {
-    let date = new Date();
+const refreshTimeElem = function (timeType, position, date) {
     let hours = date.getHours();
     let minutes = date.getMinutes();
     let seconds = date.getSeconds();
@@ -27,19 +26,14 @@ const refreshTimeElem = function (timeType, position) {
             break;
     }
 
-    if (position === 0) {
+    if (position === 0 || position === 1) {
+        const attrValue = position ? timing : 0;
+        const srcValue = position ? timing : position;
+
+
         if (timing.toString().length === 1) {
-            elem[position].setAttribute('id', 0);
-            elem[position].src = `${numbersList[position]}`;
-        } else {
-            elem[position].setAttribute('id', Array.from(timing.toString())[position]);
-            elem[position].src = `${numbersList[Array.from(timing.toString())[position]]}`;
-        }
-    }
-    if (position === 1) {
-        if (timing.toString().length === 1) {
-            elem[position].setAttribute('id', timing);
-            elem[position].src = `${numbersList[timing]}`;
+            elem[position].setAttribute('id', attrValue);
+            elem[position].src = `${numbersList[srcValue]}`;
         } else {
             elem[position].setAttribute('id', Array.from(timing.toString())[position]);
             elem[position].src = `${numbersList[Array.from(timing.toString())[position]]}`;
@@ -48,8 +42,7 @@ const refreshTimeElem = function (timeType, position) {
 };
 
 
-const checkCurrentTime = function (elem, time, position) {
-    let date = new Date();
+const checkCurrentTime = function (elem, time, position, date) {
     let timing = null;
     switch (time) {
         case 'hours':
@@ -68,26 +61,42 @@ const checkCurrentTime = function (elem, time, position) {
     let elemID = elem.getAttribute('id');
     if (position === 0) {
         if (elemID != +timing.toString()[position]) {
-            refreshTimeElem(`${time}`, position);
+            refreshTimeElem(`${time}`, position, date);
         }
     }
     if (position === 1) {
         if (elemID != +timing.toString()[position]) {
-            refreshTimeElem(`${time}`, position);
+            refreshTimeElem(`${time}`, position, date);
         }
     }
 };
 
 const updateMyTime = function () {
-    checkCurrentTime(hoursElems[0], 'hours', 0);
-    checkCurrentTime(hoursElems[1], 'hours', 1);
-    checkCurrentTime(minutesElems[0], 'minutes', 0);
-    checkCurrentTime(minutesElems[1], 'minutes', 1);
-    checkCurrentTime(secondsElems[0], 'seconds', 0);
-    checkCurrentTime(secondsElems[1], 'seconds', 1);
+    let date = new Date();
+    checkCurrentTime(hoursElems[0], 'hours', 0, date);
+    checkCurrentTime(hoursElems[1], 'hours', 1, date);
+    checkCurrentTime(minutesElems[0], 'minutes', 0, date);
+    checkCurrentTime(minutesElems[1], 'minutes', 1, date);
+    checkCurrentTime(secondsElems[0], 'seconds', 0, date);
+    checkCurrentTime(secondsElems[1], 'seconds', 1, date);
 };
 
 let changeTime = setInterval(updateMyTime, 1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -101,12 +110,13 @@ const refreshArrow = function (arrowName) {
     let date = new Date();
     let seconds = date.getSeconds();
     let minutes = date.getMinutes();
+    let miliseconds = date.getMilliseconds();
     let hours = date.getHours();
     let angle = null;
 
     switch (arrowName) {
         case 'seconds':
-            angle = (seconds * 360) / 60;
+            angle = (seconds * 360) / 60 + (miliseconds / 1000) * 0.36;    
             secondsArrow.style.transform = `translateX(-50%) rotate(${angle}deg)`;
             secondsArrow.setAttribute('angle', angle);
             break;
@@ -126,12 +136,12 @@ const refreshArrow = function (arrowName) {
     }
 };
 
-const checkAngle = function (timeType) {
-    let date = new Date();
+const checkAngle = function (timeType, date) {
     let seconds = date.getSeconds();
     let minutes = date.getMinutes();
     let hours = date.getHours();
     let angle = null;
+
     switch (timeType) {
         case 'seconds':
             angle = (seconds * 360) / 60;
@@ -158,9 +168,10 @@ const checkAngle = function (timeType) {
 };
 
 const refreshAllArrows = function () {
-    checkAngle('seconds');
-    checkAngle('minutes');
-    checkAngle('hours');
+    let date = new Date();
+    checkAngle('seconds', date);
+    checkAngle('minutes', date);
+    checkAngle('hours', date);
 };
 
 let analogInterval = setInterval(refreshAllArrows, 1000);
