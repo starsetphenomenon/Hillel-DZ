@@ -5,10 +5,12 @@ function renderItems() {
     function getData() {
         return fetch('data.json').then(res => res.json());
     }
-    let localStorage = getStorage('todoItems');
-    let myElements = new Elem('div', 'card', '.elements');
+    let storageCards = getStorage('todoItems');
+    let myElements = new Elem('div', {
+        class: 'card'
+    }, '.elements');
 
-    if (!localStorage) {
+    if (!storageCards) {
         getData().then(res => {
             myElements.renderElems(res);
             storageItems = res;
@@ -19,11 +21,11 @@ function renderItems() {
             setOption('status', res);
         });
     } else {
-        storageItems = localStorage;
-        myElements.renderElems(localStorage);
-        setOption('priority', localStorage);
-        setOption('status', localStorage);
-        return localStorage;
+        storageItems = storageCards;
+        myElements.renderElems(storageCards);
+        setOption('priority', storageCards);
+        setOption('status', storageCards);
+        return storageCards;
     }
 }
 
@@ -49,8 +51,12 @@ function getStorage(name) {
 
 const generateManually = function () {
     let elemID = document.querySelector('.elements').children.length;
-    addTodoTitle.value === '' ? addTodoTitle.value = 'Used to be title...' : addTodoTitle.value;
-    addTodoDesc.value === '' ? addTodoDesc.value = 'Used to be description...' : addTodoDesc.value;
+    if (addTodoTitle.value.trim() === '' || addTodoDesc.value.trim() === '') {
+        alert('Error: there is empty fields!');
+        addTodoTitle.value = '';
+        addTodoDesc.value = '';
+        return;
+    }
     let data = {
         "id": elemID,
         "title": addTodoTitle.value,
@@ -58,7 +64,9 @@ const generateManually = function () {
         "priority": "Low",
         "status": "Open"
     };
-    let newElem = new Elem('div', 'card', '.elements');
+    let newElem = new Elem('div', {
+        class: 'card'
+    }, '.elements');
     newElem.renderElem(data);
     storageItems.push(data);
     putInStorage('todoItems', storageItems);
